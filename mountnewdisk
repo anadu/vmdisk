@@ -1,3 +1,9 @@
+once you have been  created the disk on the azure portal or azure cli ,or like ARM templates ,and through terraform and programmictally created 
+once done you have give to this  command lsblk
+and then  we need to be format the disk mkfs.ext4 /dev/sdc 
+then format the disk we need to be mount the dircetory mkdir /app1
+mount -t ext4 /dev/sdc /app2
+
 lsblk
 NAME    MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
 sda       8:0    0   30G  0 disk
