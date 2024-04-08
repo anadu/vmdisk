@@ -1,0 +1,81 @@
+lsblk
+NAME    MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
+sda       8:0    0   30G  0 disk
+├─sda1    8:1    0  500M  0 part /boot
+├─sda2    8:2    0   29G  0 part /
+├─sda14   8:14   0    4M  0 part
+└─sda15   8:15   0  495M  0 part /boot/efi
+sdb       8:16   0    4G  0 disk
+└─sdb1    8:17   0    4G  0 part /mnt/resource
+sdc       8:32   0   32G  0 disk /app1
+sdd       8:48   0   40G  0 disk
+sr0      11:0    1  628K  0 rom
+[root@kishore ~]# mkfs.ext4 /dev/sdd
+mke2fs 1.42.9 (28-Dec-2013)
+/dev/sdd is entire device, not just one partition!
+Proceed anyway? (y,n) y
+Discarding device blocks: done
+Filesystem label=
+OS type: Linux
+Block size=4096 (log=2)
+Fragment size=4096 (log=2)
+Stride=0 blocks, Stripe width=0 blocks
+2621440 inodes, 10485760 blocks
+524288 blocks (5.00%) reserved for the super user
+First data block=0
+Maximum filesystem blocks=2157969408
+320 block groups
+32768 blocks per group, 32768 fragments per group
+8192 inodes per group
+Superblock backups stored on blocks:
+        32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632, 2654208,
+        4096000, 7962624
+
+Allocating group tables: done
+Writing inode tables: done
+Creating journal (32768 blocks): done
+Writing superblocks and filesystem accounting information: done
+
+[root@kishore ~]# mkdir /app2
+[root@kishore ~]# mount -t ext4 /dev/sdc /app2
+[root@kishore ~]# df -HT
+Filesystem     Type      Size  Used Avail Use% Mounted on
+/dev/sda2      xfs        32G  1.3G   30G   4% /
+devtmpfs       devtmpfs  476M     0  476M   0% /dev
+tmpfs          tmpfs     487M     0  487M   0% /dev/shm
+tmpfs          tmpfs     487M  6.5M  481M   2% /run
+tmpfs          tmpfs     487M     0  487M   0% /sys/fs/cgroup
+/dev/sda1      xfs       521M   83M  439M  16% /boot
+/dev/sda15     vfat      519M   11M  509M   2% /boot/efi
+/dev/sdb1      ext4      4.2G   17M  4.0G   1% /mnt/resource
+tmpfs          tmpfs      98M     0   98M   0% /run/user/1000
+tmpfs          tmpfs      98M     0   98M   0% /run/user/0
+/dev/sdc       ext4       34G   51M   32G   1% /app1
+[root@kishore ~]# df -hT
+Filesystem     Type      Size  Used Avail Use% Mounted on
+/dev/sda2      xfs        30G  1.2G   28G   4% /
+devtmpfs       devtmpfs  454M     0  454M   0% /dev
+tmpfs          tmpfs     465M     0  465M   0% /dev/shm
+tmpfs          tmpfs     465M  6.2M  458M   2% /run
+tmpfs          tmpfs     465M     0  465M   0% /sys/fs/cgroup
+/dev/sda1      xfs       497M   79M  418M  16% /boot
+/dev/sda15     vfat      495M  9.9M  485M   2% /boot/efi
+/dev/sdb1      ext4      3.9G   16M  3.7G   1% /mnt/resource
+tmpfs          tmpfs      93M     0   93M   0% /run/user/1000
+tmpfs          tmpfs      93M     0   93M   0% /run/user/0
+/dev/sdc       ext4       32G   49M   30G   1% /app1
+[root@kishore ~]# mount -t ext4 /dev/sdd /app2
+[root@kishore ~]# df -hT
+Filesystem     Type      Size  Used Avail Use% Mounted on
+/dev/sda2      xfs        30G  1.2G   28G   4% /
+devtmpfs       devtmpfs  454M     0  454M   0% /dev
+tmpfs          tmpfs     465M     0  465M   0% /dev/shm
+tmpfs          tmpfs     465M  6.2M  458M   2% /run
+tmpfs          tmpfs     465M     0  465M   0% /sys/fs/cgroup
+/dev/sda1      xfs       497M   79M  418M  16% /boot
+/dev/sda15     vfat      495M  9.9M  485M   2% /boot/efi
+/dev/sdb1      ext4      3.9G   16M  3.7G   1% /mnt/resource
+tmpfs          tmpfs      93M     0   93M   0% /run/user/1000
+tmpfs          tmpfs      93M     0   93M   0% /run/user/0
+/dev/sdc       ext4       32G   49M   30G   1% /app1
+/dev/sdd       ext4       40G   49M   38G   1% /app2
